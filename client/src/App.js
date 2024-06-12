@@ -63,5 +63,22 @@ function App() {
     </DataProvider>
   );
 }
+// App.js or wherever your routes are defined
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AdminPanel from './components/Admin/AdminPanel';
+// other imports...
+
+function App() {
+    return (
+        <Router>
+            <Routes>
+                {/* other routes */}
+                <Route path="/admin" element={<AdminPanel />} />
+            </Routes>
+        </Router>
+    );
+}
 
 export default App;
+
+
