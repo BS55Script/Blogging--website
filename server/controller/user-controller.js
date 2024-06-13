@@ -2,38 +2,28 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-import Token from '../model/token.js';
+import Token from '../model/token.js'
 import User from '../model/user.js';
 
 dotenv.config();
 
-export const signupUser = async (request, response) => {
+export const singupUser = async (request, response) => {
     try {
-        // Check if the username already exists
-        const existingUser = await User.findOne({ username: request.body.username });
-        if (existingUser) {
-            return response.status(400).json({ msg: 'Username already exists' });
-        }
-
-        // Hash the password
+        // const salt = await bcrypt.genSalt();
+        // const hashedPassword = await bcrypt.hash(request.body.password, salt);
         const hashedPassword = await bcrypt.hash(request.body.password, 10);
 
-        // Create a new user
-        const newUser = new User({
-            name: request.body.name,
-            username: request.body.username,
-            password: hashedPassword
-        });
+        const user = { username: request.body.username, name: request.body.name, password: hashedPassword }
 
-        // Save the new user to the database
+        const newUser = new User(user);
         await newUser.save();
 
-        return response.status(200).json({ msg: 'Signup successful' });
+        return response.status(200).json({ msg: 'Signup successfull' });
     } catch (error) {
-        console.error(error.message);
         return response.status(500).json({ msg: 'Error while signing up user' });
     }
-};
+}
+
 
 export const loginUser = async (request, response) => {
     let user = await User.findOne({ username: request.body.username });
@@ -58,11 +48,11 @@ export const loginUser = async (request, response) => {
     } catch (error) {
         response.status(500).json({ msg: 'error while login the user' })
     }
-};
+}
 
 export const logoutUser = async (request, response) => {
     const token = request.body.token;
     await Token.deleteOne({ token: token });
 
-    response.status(204).json({ msg: 'logout successful' });
-};
+    response.status(204).json({ msg: 'logout successfull' });
+}

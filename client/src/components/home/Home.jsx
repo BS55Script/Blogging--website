@@ -1,24 +1,13 @@
-import { Grid, Typography, Box } from '@mui/material';
+
+import { Grid } from '@mui/material';
+
+//components
 import Banner from '../banner/Banner';
 import Categories from './Categories';
 import Posts from './post/Posts';
-import { styled } from '@mui/system';
-
-const Footer = styled(Box)`
-    background-color: #333;
-    padding: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-`;
-
-const CopyrightText = styled(Typography)`
-    color: #FB641B;
-`;
 
 const Home = () => {
+
     return (
         <>
             <Banner />
@@ -30,13 +19,6 @@ const Home = () => {
                     <Posts />
                 </Grid>
             </Grid>
-            <Footer>
-                <Typography variant="h4">
-                    <CopyrightText>
-                        &copy; The Voice Canvas
-                    </CopyrightText>
-                </Typography>
-            </Footer>
         </>
     )
 }
