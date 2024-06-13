@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, styled, Button } from '@mui/material'; 
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Component = styled(AppBar)`
@@ -12,14 +12,19 @@ const Container = styled(Toolbar)`
     justify-content: space-between;
 `;
 
-const StyledLink = styled(Link)`
+const StyledNavLink = styled(NavLink)`
     padding: 0 10px;
     color: #000;
     text-decoration: none;
+
+    &.active {
+        color: red; /* Change color for active link */
+    }
 `;
 
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const logout = async () => navigate('/account');
         
@@ -27,11 +32,11 @@ const Header = () => {
         <Component>
             <Container>
                 <div>
-                    <StyledLink to='/'>HOME</StyledLink>
-                    <StyledLink to='/about'>ABOUT</StyledLink>
-                    <StyledLink to='/contact'>CONTACT</StyledLink>
+                    <StyledNavLink to='/' exact activeClassName="active">HOME</StyledNavLink>
+                    <StyledNavLink to='/about' activeClassName="active">ABOUT</StyledNavLink>
+                    <StyledNavLink to='/contact' activeClassName="active">CONTACT</StyledNavLink>
                 </div>
-                <StyledLink to='/account'>LOGOUT</StyledLink>
+                <StyledNavLink to='/account' activeClassName="active">LOGOUT</StyledNavLink>
             </Container>
         </Component>
     )

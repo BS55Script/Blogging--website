@@ -5,12 +5,6 @@ import { uploadImage, getImage } from '../controller/image-controller.js';
 import { newComment, getComments, deleteComment } from '../controller/comment-controller.js';
 import { loginUser, signupUser, logoutUser } from '../controller/user-controller.js';
 import { authenticateToken, createNewToken } from '../controller/jwt-controller.js';
-// routes/route.js
-import adminRoutes from './admin.js';
-
-app.use('/', Router);
-app.use('/', adminRoutes);
-
 
 import upload from '../utils/upload.js';
 

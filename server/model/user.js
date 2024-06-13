@@ -1,20 +1,23 @@
 // models/user.js
-const userSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
+
+import mongoose from 'mongoose';
+
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     isAdmin: {
         type: Boolean,
-        default: false
-    }
+        default: false,
+    },
 });
+
+const User = mongoose.model('User', userSchema);
+
+export default User;

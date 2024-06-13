@@ -1,55 +1,75 @@
-
 import { Box, styled, Typography, Link } from '@mui/material';
 import { GitHub, Instagram, Email } from '@mui/icons-material';
+import imageURL from '../../images/VoiceCanvas.jpg'; // Import your image
 
 const Banner = styled(Box)`
-    background-image: url(https://www.wallpapertip.com/wmimgs/23-236943_us-wallpaper-for-website.jpg);
-    width: 100%;
-    height: 50vh;
-    background-position: left 0px bottom 0px;
-    background-size: cover;
+    background-image: url(${imageURL}); // Use the imported image URL here
+    width: 80%;
+    height: 40vh;
+    background-position: center right 170px;
+    background-size: fit;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
 `;
 
 const Wrapper = styled(Box)`
     padding: 20px;
-    & > h3, & > h5 {
-        margin-top: 50px;
-    }
+    text-align: center;
 `;
 
 const Text = styled(Typography)`
-    color: #878787;
+    color: green;
 `;
 
-const About = () => {
+const SocialLink = styled(Link)`
+    color: #878787;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+    &:hover {
+        color: #333;
+    }
+`;
+const Footer = styled(Box)`
+    background-color: #333;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+`;
 
+const CopyrightText = styled(Typography)`
+    color: #FB641B;
+`;
+
+
+const About = () => {
     return (
-        <Box>
-            <Banner/>
+        <>
+            <Banner>
+                <Typography variant="h3"></Typography>
+            </Banner>
             <Wrapper>
-                <Typography variant="h3">The Voice Canvas</Typography>
-                <Text variant="h5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi officiis dolore veniam quos blanditiis laudantium 
-                    veritatis consequuntur deleniti voluptates dignissimos. In omnis quod cumque voluptatem labore nemo doloribus sequi? Fuga?<br />
-                   
-                    <Box component="span" style={{ marginLeft: 5 }}>
-                        <Link href="https://github.com" color="inherit" target="_blank"><GitHub /></Link>
-                    </Box>
-                </Text>
+                <Typography variant="h3">Welcome to "The Voice Canvas"</Typography>
+                <Text variant="h5">At <strong>The Voice Canvas</strong>, we believe in the power of every individual's voice. Our platform is a vibrant ecosphere where diverse voices resonate, creating a rich tapestry of perspectives and ideas.</Text>
                 <Text variant="h5">
-                    Need something built or simply want to have chat? Reach out to me on
-                    <Box component="span" style={{ marginLeft: 5 }}>
-                        <Link href="https://www.instagram.com" color="inherit" target="_blank">
-                            <Instagram />
-                        </Link>
-                    </Box>  
-                        or send me an Email 
-                        <Link href="mailto:bsah5882@gmail.com?Subject=This is a subject" target="_blank" color="inherit">
-                            <Email />
-                        </Link>.
+                    Whether you're a seasoned writer or just starting out, <strong>The Voice Canvas</strong> welcomes you to share your thoughts, stories, and experiences with our global community. Join us in celebrating the beauty of expression and the richness of human experience.<br />
                 </Text>
             </Wrapper>
-        </Box>
-    )
+            <Footer>
+                <Typography variant="h4" style={{ color: '#FB641B' }}>
+                <CopyrightText>
+                        &copy; The Voice Canvas
+                    </CopyrightText>
+                </Typography>
+            </Footer>
+        </>
+    );
 }
 
 export default About;
