@@ -101,20 +101,20 @@ const CreatePost = () => {
                     onChange={(e) => setFile(e.target.files[0])}
                 />
                 <InputTextField onChange={(e) => handleChange(e)} name='title' placeholder="Title" />
-                <InputLabel id="categories-label">Categories</InputLabel>
+                <InputLabel id="categories-label"></InputLabel>
                 <Select
                     labelId="categories-label"
                     id="categories"
                     value={post.categories}
                     onChange={(e) => setPost({ ...post, categories: e.target.value })}
                 >
-                    <MenuItem value="All">All</MenuItem>
-                    <MenuItem value="Category1">Music</MenuItem>
-                    <MenuItem value="Category3">Movies</MenuItem>
-                    <MenuItem value="Category4">Sport</MenuItem>
-                    <MenuItem value="Category5">Tech</MenuItem>
+                    <MenuItem value="All">Choose Categories</MenuItem>
+                    <MenuItem value="Music">Music</MenuItem>
+                    <MenuItem  value="Movies">Movies</MenuItem>
+                    <MenuItem value="Sport">Sport</MenuItem>
+                    <MenuItem value="Tech">Tech</MenuItem>
                     <MenuItem value="Health">Health</MenuItem>
-                    <MenuItem value="Category7">Fashion</MenuItem>
+                    <MenuItem value="Fashion">Fashion</MenuItem>
                     {/* Add more categories here */}
                 </Select>
                 <Button onClick={() => savePost()} variant="contained" color="primary">Publish</Button>

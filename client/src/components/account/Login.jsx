@@ -104,6 +104,16 @@ const Login = ({ isUserAuthenticated }) => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateName = (name) => {
+    const nameRegex = /^[A-Za-z\s]+$/;
+    return nameRegex.test(name);
+  };
+
   const validateSignup = () => {
     const { name, username, password } = signup;
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
@@ -112,8 +122,16 @@ const Login = ({ isUserAuthenticated }) => {
       showError('All fields are required');
       return false;
     }
-    if (username.length < 5) {
-      showError('Username must be at least 5 characters long');
+    if (!validateName(name)) {
+      showError('Name must contain only alphabets and spaces');
+      return false;
+    }
+    if (!validateEmail(username)) {
+      showError('Please enter a valid email address');
+      return false;
+    }
+    if (username.length < 10) {
+      showError('Username must be at least 10 characters long');
       return false;
     }
     if (!passwordRegex.test(password)) {
@@ -123,24 +141,40 @@ const Login = ({ isUserAuthenticated }) => {
     return true;
   };
 
+  const validateLogin = () => {
+    const { username, password } = login;
+
+    if (!username || !password) {
+      showError('All fields are required');
+      return false;
+    }
+    if (!validateEmail(username)) {
+      showError('Please enter a valid email address');
+      return false;
+    }
+    return true;
+  };
+
   const loginUser = async () => {
-    try {
-      let response = await API.userLogin(login);
-      if (response.isSuccess) {
-        showError('');
+    if (validateLogin()) {
+      try {
+        let response = await API.userLogin(login);
+        if (response.isSuccess) {
+          showError('');
 
-        sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
-        sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
-        setAccount({ name: response.data.name, username: response.data.username });
+          sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
+          sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+          setAccount({ name: response.data.name, username: response.data.username });
 
-        isUserAuthenticated(true);
-        setLogin(loginInitialValues);
-        navigate('/');
-      } else {
-        showError('Invalid credentials, please try again');
+          isUserAuthenticated(true);
+          setLogin(loginInitialValues);
+          navigate('/');
+        } else {
+          showError('Invalid credentials, please check username or password');
+        }
+      } catch (error) {
+        showError('Connection error,please check username or password & try again later');
       }
-    } catch (error) {
-      showError('Connection error, please try again later');
     }
   };
 
@@ -184,7 +218,7 @@ const Login = ({ isUserAuthenticated }) => {
               value={login.username}
               onChange={onValueChange}
               name='username'
-              label='Enter  Email'
+              label='Enter Email'
             />
             <TextField
               variant="standard"

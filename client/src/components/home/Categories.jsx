@@ -1,6 +1,5 @@
-
-import { Button, Table, TableHead, TableRow, TableCell, TableBody, styled } from '@mui/material';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Button, Table, TableHead, TableRow, TableCell, styled, Select, MenuItem } from '@mui/material';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 
 import { categories } from '../../constants/data';
 
@@ -24,37 +23,45 @@ const StyledLink = styled(Link)`
 const Categories = () => {
     const [searchParams] = useSearchParams();
     const category = searchParams.get('category');
-    
+    const navigate = useNavigate();
+
+    const handleCategoryChange = (event) => {
+        const selectedCategory = event.target.value;
+        navigate(`/?category=${selectedCategory}`);
+    }
+
     return (
         <>
             <Link to={`/create?category=${category || ''}`} style={{ textDecoration: 'none' }}>
                 <StyledButton variant="contained">Create Blog</StyledButton>
             </Link>
-            
+    {/* we moved this code to header sect */}
+{/*             
             <StyledTable>
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                            <StyledLink to={"/"}>
-                                All Categories
-                            </StyledLink>
+                            <Select
+                                value={category || ''}
+                                onChange={handleCategoryChange}
+                                displayEmpty
+                                fullWidth
+                            >
+                                <MenuItem value="">
+                                    All Categories
+                                </MenuItem>
+                                {
+                                    categories.map(category => (
+                                        <MenuItem key={category.id} value={category.type}>
+                                            {category.type}
+                                        </MenuItem>
+                                    ))
+                                }
+                            </Select>
                         </TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {
-                        categories.map(category => (
-                            <TableRow key={category.id}>
-                                <TableCell>
-                                    <StyledLink to={`/?category=${category.type}`}>
-                                        {category.type}
-                                    </StyledLink>
-                                </TableCell>
-                            </TableRow>
-                        ))
-                    }
-                </TableBody>
-            </StyledTable>
+            </StyledTable> */}
         </>
     )
 }
