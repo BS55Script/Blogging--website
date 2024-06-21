@@ -16,11 +16,11 @@ const Container = styled(Toolbar)`
 
 const StyledNavLink = styled(NavLink)`
     padding: 0 10px;
-    color: #000;
+    color: #1976d2;  /* Change default link color */
     text-decoration: none;
 
     &.active {
-        color: red; /* Change color for active link */
+        color: #FF0000; /* Change color for active link */
     }
 `;
 
@@ -66,7 +66,7 @@ const Header = () => {
                             displayEmpty
                             style={{ marginRight: '20px' }}
                         >
-                            <MenuItem value="">
+                             <MenuItem value="" style={{ color: '#1976d2' }}>
                                 All Categories
                             </MenuItem>
                             {

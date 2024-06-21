@@ -10,7 +10,7 @@ const StyledTable = styled(Table)`
 const StyledButton = styled(Button)`
     margin: 20px;
     width: 85%;
-    background: #6495ED;
+    background: red;
     color: #fff;
     text-decoration: none;
 `;

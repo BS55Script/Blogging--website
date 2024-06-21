@@ -117,7 +117,7 @@ const Update = () => {
                     <MenuItem value="All">All</MenuItem>
                     <MenuItem value="Music">Music</MenuItem>
                     <MenuItem value="Movies">Movies</MenuItem>
-                    <MenuItem value="Sport">Sport</MenuItem>
+                    <MenuItem value="Sports">Sports</MenuItem>
                     <MenuItem value="Tech">Tech</MenuItem>
                     <MenuItem value="Health">Health</MenuItem>
                     <MenuItem value="Fashion">Fashion</MenuItem>
