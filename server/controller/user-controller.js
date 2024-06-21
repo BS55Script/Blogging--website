@@ -7,19 +7,31 @@ import User from '../model/user.js';
 
 dotenv.config();
 
-export const singupUser = async (request, response) => {
+export const signupUser = async (request, response) => {
     try {
-        // const salt = await bcrypt.genSalt();
-        // const hashedPassword = await bcrypt.hash(request.body.password, salt);
+        // Check if the username already exists
+        let user = await User.findOne({ username: request.body.username });
+        if (user) {
+            return response.status(400).json({ msg: 'Username already exists' });
+        }
+
+        // Hash the password
         const hashedPassword = await bcrypt.hash(request.body.password, 10);
 
-        const user = { username: request.body.username, name: request.body.name, password: hashedPassword }
+        // Create the new user
+        const newUser = new User({
+           
+            name: request.body.name,
+            username: request.body.username,
+            password: hashedPassword
+        });
 
-        const newUser = new User(user);
+        // Save the user to the database
         await newUser.save();
 
-        return response.status(200).json({ msg: 'Signup successfull' });
+        return response.status(200).json({ msg: 'Signup successful' });
     } catch (error) {
+        console.error('Error while signing up user', error);
         return response.status(500).json({ msg: 'Error while signing up user' });
     }
 }

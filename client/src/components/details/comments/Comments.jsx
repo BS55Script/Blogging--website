@@ -60,12 +60,12 @@ const Comments = ({ post }) => {
         });
     }
 
-    const addComment = async() => {
+    const addComment = async () => {
         await API.newComment(comment);
         setComment(initialValue)
         setToggle(prev => !prev);
     }
-    
+
     return (
         <Box>
             <Container>
@@ -87,7 +87,7 @@ const Comments = ({ post }) => {
             <Box>
                 {
                     comments && comments.length > 0 && comments.map(comment => (
-                        <Comment comment={comment} setToggle={setToggle} />
+                        <Comment key={comment._id} comment={comment} postAuthor={post.username} setToggle={setToggle} />
                     ))
                 }
             </Box>

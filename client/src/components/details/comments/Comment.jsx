@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { Typography, Box, styled } from "@mui/material";
 import { Delete } from '@mui/icons-material';
 
@@ -18,7 +17,7 @@ const Container = styled(Box)`
 `;
 
 const Name = styled(Typography)`
-    font-weight: 600,
+    font-weight: 600;
     font-size: 18px;
     margin-right: 20px;
 `;
@@ -30,11 +29,12 @@ const StyledDate = styled(Typography)`
 
 const DeleteIcon = styled(Delete)`
     margin-left: auto;
+    cursor: pointer;
 `;
 
-const Comment = ({ comment, setToggle }) => {
+const Comment = ({ comment, postAuthor, setToggle }) => {
 
-    const { account } = useContext(DataContext)
+    const { account } = useContext(DataContext);
     
     const removeComment = async () => {
        await API.deleteComment(comment._id);
@@ -46,7 +46,9 @@ const Comment = ({ comment, setToggle }) => {
             <Container>
                 <Name>{comment.name}</Name>
                 <StyledDate>{new Date(comment.date).toDateString()}</StyledDate>
-                { comment.name === account.username && <DeleteIcon onClick={() => removeComment()} /> }
+                { comment.name === account.username || account.username === postAuthor ? 
+                    <DeleteIcon onClick={() => removeComment()} /> : null 
+                }
             </Container>
             <Typography>{comment.comments}</Typography>
         </Component>

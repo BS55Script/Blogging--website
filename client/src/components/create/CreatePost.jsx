@@ -115,6 +115,7 @@ const CreatePost = () => {
                     <MenuItem value="Tech">Tech</MenuItem>
                     <MenuItem value="Health">Health</MenuItem>
                     <MenuItem value="Fashion">Fashion</MenuItem>
+                    <MenuItem value="Tourism">Tourism</MenuItem>
                     {/* Add more categories here */}
                 </Select>
                 <Button onClick={() => savePost()} variant="contained" color="primary">Publish</Button>
