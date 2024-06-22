@@ -1,8 +1,9 @@
-import { AppBar, Toolbar, styled, Button, Select, MenuItem, Box, Typography } from '@mui/material'; 
+import React, { useEffect, useState } from 'react';
+import { AppBar, Toolbar, styled, Button, Select, MenuItem, Box, Typography, Menu, IconButton } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 import { categories } from '../../constants/data'; // Assuming categories are exported from this file
+import FollowButton from '../FollowButton';
 
 const Component = styled(AppBar)`
     background: #FFFFFF;
@@ -38,10 +39,31 @@ const CopyrightText = styled(Typography)`
     color: #FB641B;
 `;
 
+const BloggersListMenu = styled(Menu)`
+    max-height: 300px;  // Adjust the height as needed
+    overflow-y: auto;
+`;
+
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const category = new URLSearchParams(location.search).get('category') || '';
+    const [bloggers, setBloggers] = useState([]);
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    useEffect(() => {
+        const fetchBloggers = async () => {
+            try {
+                const response = await fetch('/api/bloggers'); // Adjust the endpoint if necessary
+                const data = await response.json();
+                setBloggers(data);
+            } catch (error) {
+                console.error('Error fetching bloggers:', error);
+            }
+        };
+
+        fetchBloggers();
+    }, []);
 
     const handleCategoryChange = (event) => {
         const selectedCategory = event.target.value;
@@ -49,6 +71,14 @@ const Header = () => {
     }
     
     const logout = async () => navigate('/account');
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <>
@@ -66,7 +96,7 @@ const Header = () => {
                             displayEmpty
                             style={{ marginRight: '20px' }}
                         >
-                             <MenuItem value="" style={{ color: '#1976d2' }}>
+                            <MenuItem value="" style={{ color: '#1976d2' }}>
                                 All Categories
                             </MenuItem>
                             {
@@ -77,10 +107,23 @@ const Header = () => {
                                 ))
                             }
                         </Select>
+                        <Button onClick={handleMenuOpen}>Bloggers</Button>
                         <Button onClick={logout}>LOGOUT</Button>
                     </div>
                 </Container>
             </Component>
+            <BloggersListMenu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+            >
+                {bloggers.map(blogger => (
+                    <Box key={blogger._id} sx={{ padding: 1 }}>
+                        <Typography>{blogger.username}</Typography>
+                        <FollowButton bloggerId={blogger._id} userId={sessionStorage.getItem('userId')} />
+                    </Box>
+                ))}
+            </BloggersListMenu>
             <Footer>
                 <Typography variant="h4" style={{ color: '#FB641B' }}>
                     <CopyrightText>

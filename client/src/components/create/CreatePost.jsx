@@ -46,6 +46,7 @@ const initialPost = {
     title: '',
     description: '',
     picture: '',
+    name:'',
     username: '',
     categories: '',
     createdDate: new Date()
