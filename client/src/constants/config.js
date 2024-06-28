@@ -37,5 +37,9 @@ export const SERVICE_URLS = {
     newComment: { url: '/comment/new', method: 'POST' },
     getAllComments: { url: 'comments', method: 'GET', query: true },
     deleteComment: { url: 'comment/delete', method: 'DELETE', query: true },
-    updatePost: { url: 'update', method: 'PUT', query: true }
-}
+    updatePost: { url: 'update', method: 'PUT', query: true },
+    checkIfFollowing: { url: '/follow/check', method: 'GET', params: true },
+    followUser: { url: '/follow', method: 'POST', params: true },
+    unfollowUser: { url: '/follow', method: 'DELETE', params: true },
+    getFollowerCount: { url: '/followers/count', method: 'GET', params: true }
+};

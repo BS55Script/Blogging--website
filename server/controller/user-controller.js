@@ -68,3 +68,40 @@ export const logoutUser = async (request, response) => {
 
     response.status(204).json({ msg: 'logout successfull' });
 }
+
+// Example controller function for following a user
+export const followUser = (req, res) => {
+    const { username } = req.body; // Assuming username is sent in the request body
+
+    // Perform follow logic here, e.g., update database, etc.
+    console.log(`Following user: ${username}`);
+    // Return a response indicating success
+    res.json({ isSuccess: true, message: `Successfully followed ${username}` });
+};
+// unfollow a user
+const unfollowUser = async (req, res) => {
+    try {
+        // Assuming you have a User model and some logic to handle unfollowing
+        const { username } = req.body; // Assuming username is sent in request body
+        
+        // Example: Find the user in your database and update their followers list
+        // Replace this with your actual database logic
+        const user = await User.findOneAndUpdate(
+            { username: username },
+            { $pull: { followers: req.user._id } }, // Assuming followers are stored as IDs
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Optionally, you might want to update other data or return a success message
+        res.status(200).json({ message: "Successfully unfollowed user" });
+    } catch (error) {
+        console.error("Error unfollowing user:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export { unfollowUser };

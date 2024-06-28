@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { followUser } from '../controller/user-controller.js'; 
+import { unfollowUser } from '../controller/user-controller.js';
 import { createPost, updatePost, deletePost, getPost, getAllPosts } from '../controller/post-controller.js';
 import { uploadImage, getImage } from '../controller/image-controller.js';
 import { newComment, getComments, deleteComment } from '../controller/comment-controller.js';
@@ -29,5 +31,12 @@ router.get('/file/:filename', getImage);
 router.post('/comment/new', authenticateToken, newComment);
 router.get('/comments/:id', authenticateToken, getComments);
 router.delete('/comment/delete/:id', authenticateToken, deleteComment);
+
+
+router.post('/follow', followUser);
+router.post('/unfollow', unfollowUser);
+
+
+
 
 export default router;
