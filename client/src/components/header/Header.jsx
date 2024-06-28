@@ -3,7 +3,7 @@ import { AppBar, Toolbar, styled, Button, Select, MenuItem, Box, Typography, Men
 import { NavLink, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { categories } from '../../constants/data'; // Assuming categories are exported from this file
-import FollowButton from '../FollowButton';
+
 
 const Component = styled(AppBar)`
     background: #FFFFFF;
@@ -107,23 +107,12 @@ const Header = () => {
                                 ))
                             }
                         </Select>
-                        <Button onClick={handleMenuOpen}>Bloggers</Button>
+                       
                         <Button onClick={logout}>LOGOUT</Button>
                     </div>
                 </Container>
             </Component>
-            <BloggersListMenu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-            >
-                {bloggers.map(blogger => (
-                    <Box key={blogger._id} sx={{ padding: 1 }}>
-                        <Typography>{blogger.username}</Typography>
-                        <FollowButton bloggerId={blogger._id} userId={sessionStorage.getItem('userId')} />
-                    </Box>
-                ))}
-            </BloggersListMenu>
+           
             <Footer>
                 <Typography variant="h4" style={{ color: '#FB641B' }}>
                     <CopyrightText>
