@@ -1,5 +1,5 @@
 import { Box, styled, Typography, Link } from '@mui/material';
-import { GitHub, Instagram, Email } from '@mui/icons-material';
+// import { GitHub, Instagram, Email } from '@mui/icons-material';
 import imageURL from '../../images/VoiceCanvas.jpg'; // Import your image
 
 const Banner = styled(Box)`

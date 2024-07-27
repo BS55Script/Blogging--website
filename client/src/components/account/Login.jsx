@@ -25,7 +25,7 @@ const Wrapper = styled(Box)`
   flex: 1;
   flex-direction: column;
   & > div, & > button, & > p {
-    margin-top: 15px;
+    margin-top: 25px;
   }
 `;
 
@@ -255,18 +255,27 @@ const Login = ({ isUserAuthenticated }) => {
               onChange={onInputChange}
               name='name'
               label='Enter Name'
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               variant="standard"
               onChange={onInputChange}
               name='username'
               label='Enter Email'
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <TextField
               variant="standard"
               onChange={onInputChange}
               name='password'
               label='Enter Password'
+              InputLabelProps={{
+                shrink: true,
+              }}
               type={showPassword ? 'text' : 'password'}
               InputProps={{
                 endAdornment: (

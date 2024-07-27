@@ -122,6 +122,7 @@ const Update = () => {
                     <MenuItem value="Tech">Tech</MenuItem>
                     <MenuItem value="Health">Health</MenuItem>
                     <MenuItem value="Fashion">Fashion</MenuItem>
+                    <MenuItem value="Education">Education</MenuItem>
                 </Select>
                 <Button onClick={updateBlogPost} variant="contained" color="primary">Update</Button>
             </StyledFormControl>
